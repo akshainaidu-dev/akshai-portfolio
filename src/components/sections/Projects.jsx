@@ -33,7 +33,7 @@ const projects = [
       "Personal portfolio website showcasing projects, services, and founder profile with modern SaaS style UI.",
     tech: ["React", "Tailwind", "UI Design", "Branding"],
     live: null,
-    github: "https://github.com/akshainaidu-dev",
+    github: "https://github.com/akshainaidu-dev/akshai-portfolio",
     featured: false,
     image: portfolioImg
   }
