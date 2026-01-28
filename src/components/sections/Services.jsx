@@ -1,4 +1,15 @@
-import { Layout, Server, Database, Shield, Workflow, Cpu, ArrowUpRight } from "lucide-react";
+import {
+  Layout,
+  Server,
+  Database,
+  Shield,
+  Workflow,
+  Cpu,
+  ArrowUpRight
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+/* ================= DATA ================= */
 
 const services = [
   {
@@ -35,33 +46,83 @@ const services = [
 
 const COMPANY_URL = "https://tensoriktechnologies.com";
 
+/* ================= ANIMATION SYSTEM (SAME AS ABOUT) ================= */
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.15
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 45 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut"
+    }
+  }
+};
+
+/* ================= COMPONENT ================= */
+
 const Services = () => {
   return (
     <section id="services" className="py-24 relative overflow-hidden">
-      
+      {/* Glow */}
       <div className="absolute top-1/2 right-0 w-[32%] h-[32%] bg-[#4f46e5]/10 blur-[120px] -z-10 rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mb-12">
-          <span className="text-[#4f46e5] font-bold uppercase tracking-widest text-[11px]">
+        {/* ================= HEADER ================= */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-120px" }}
+          className="max-w-3xl mb-12"
+        >
+          <motion.span
+            variants={item}
+            className="text-[#4f46e5] font-bold uppercase tracking-widest text-[11px]"
+          >
             Services
-          </span>
+          </motion.span>
 
-          <h2 className="mt-2 mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
+          <motion.h2
+            variants={item}
+            className="mt-2 mb-4 text-3xl md:text-4xl font-extrabold tracking-tight"
+          >
             What I Build
-          </h2>
+          </motion.h2>
 
-          <p className="text-gray-400 text-base leading-relaxed">
+          <motion.p
+            variants={item}
+            className="text-gray-400 text-base leading-relaxed"
+          >
             Click any service to explore more on Tensorik Technologies.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ================= SERVICES GRID ================= */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-120px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {services.map((service, i) => {
             const Icon = service.icon;
             return (
-              <a
+              <motion.a
                 key={i}
+                variants={item}
                 href={COMPANY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -74,14 +135,15 @@ const Services = () => {
                              hover:-translate-y-1
                              transition-all duration-300 cursor-pointer"
                 >
-
                   <div className="absolute inset-0 rounded-2xl bg-[#4f46e5]/5 opacity-0 
                                   group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                   <div className="mb-5 flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-lg bg-[#0a0b0d] border border-white/10 
-                                    flex items-center justify-center
-                                    group-hover:scale-110 transition-transform duration-300">
+                    <div
+                      className="w-11 h-11 rounded-lg bg-[#0a0b0d] border border-white/10 
+                                 flex items-center justify-center
+                                 group-hover:scale-110 transition-transform duration-300"
+                    >
                       <Icon className="text-[#4f46e5]" size={20} />
                     </div>
 
@@ -99,16 +161,17 @@ const Services = () => {
                     {service.desc}
                   </p>
 
-                  <div className="mt-4 text-xs font-semibold text-[#4f46e5] opacity-0 
-                                  group-hover:opacity-100 transition-opacity">
+                  <div
+                    className="mt-4 text-xs font-semibold text-[#4f46e5] opacity-0 
+                               group-hover:opacity-100 transition-opacity"
+                  >
                     View on Tensorik
                   </div>
                 </div>
-              </a>
+              </motion.a>
             );
           })}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

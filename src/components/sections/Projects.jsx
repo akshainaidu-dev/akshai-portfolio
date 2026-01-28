@@ -1,7 +1,10 @@
 import { ExternalLink, Github, Star } from "lucide-react";
+import { motion } from "framer-motion";
 import tensorikImg from "../../assets/projects/tensorik.png";
 import autoRecycleImg from "../../assets/projects/autorecycling.png";
 import portfolioImg from "../../assets/projects/portfolio.png";
+
+/* ================= DATA ================= */
 
 const projects = [
   {
@@ -39,32 +42,84 @@ const projects = [
   }
 ];
 
+/* ================= ANIMATION SYSTEM (SAME AS ABOUT & SERVICES) ================= */
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.15
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 45 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut"
+    }
+  }
+};
+
+/* ================= COMPONENT ================= */
+
 const Projects = () => {
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
-      
+      {/* Glow */}
       <div className="absolute left-0 top-1/2 w-[35%] h-[35%] bg-[#4f46e5]/10 blur-[140px] -z-10 rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mb-16">
-          <span className="text-[#4f46e5] font-bold uppercase tracking-widest text-xs">
-            Projects
-          </span>
 
-          <h2 className="mt-3 mb-5 text-3xl md:text-4xl font-extrabold tracking-tight">
+        {/* ================= HEADER ================= */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-120px" }}
+          className="max-w-3xl mb-16"
+        >
+          <motion.span
+            variants={item}
+            className="text-[#4f46e5] font-bold uppercase tracking-widest text-xs"
+          >
+            Projects
+          </motion.span>
+
+          <motion.h2
+            variants={item}
+            className="mt-3 mb-5 text-3xl md:text-4xl font-extrabold tracking-tight"
+          >
             <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               Products and Websites
             </span>
-          </h2>
+          </motion.h2>
 
-          <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+          <motion.p
+            variants={item}
+            className="text-gray-400 text-base md:text-lg leading-relaxed"
+          >
             Live products and business websites I have built and shipped.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          </motion.p>
+        </motion.div>
+
+        {/* ================= PROJECTS GRID ================= */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-120px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projects.map((project, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={item}
               className={`group relative bg-[#16181d] border rounded-2xl p-8 flex flex-col
                 ${project.featured
                   ? "border-[#4f46e5]/40 shadow-[0_0_80px_rgba(79,70,229,0.15)]"
@@ -144,10 +199,9 @@ const Projects = () => {
                   </a>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );
